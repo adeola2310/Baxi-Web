@@ -1,0 +1,83 @@
+<header>
+
+  <!--top nav start-->
+  <nav class="baxi-top-nav">
+    <div class="nav-logo">
+      <a routerLink="/">
+        <img src="assets/images/baxi-logo.png" alt="logo">
+        <img src="assets/images/baxipay_logo.png" alt="logo">
+      </a>
+    </div>
+    <ul class="top-links" [class.top-links-auth]="state.isLoggedIn">
+      <ng-container *ngIf="!state.isLoggedIn; else authenticated">
+        <li><a (click)="modalAction('LOGIN')">Login</a></li>
+        <li><a (click)="modalAction('SIGN_UP')">Sign Up</a></li>
+      </ng-container>
+
+      <ng-template #authenticated>
+        <li class="">
+<!--          <a class="">{{state.headerData}}</a>-->
+<!--          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{state.headerData}}</a>-->
+<!--          <div class="dropdown">-->
+<!--            <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">-->
+<!--              <a class="dropdown-item" routerLink="/transactions">-->
+<!--                <img src="assets/images/svg/money.png" alt="" width="15px"> Transactions-->
+<!--              </a>-->
+<!--              <a class="dropdown-item" routerLink="/profile" >-->
+<!--                <img src="assets/images/svg/account.png" alt="" width="15px"> Profile-->
+<!--              </a>-->
+<!--              <div class="dropdown-divider"></div>-->
+<!--              <a class="dropdown-item" style="cursor: pointer" (click)="logOut()">-->
+<!--                <img src="assets/images/svg/logout.png" alt="" width="15px">  Log Out-->
+<!--              </a>-->
+<!--            </div>-->
+<!--          </div>-->
+        </li>
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div>
+              <a style="margin-right: 10px;"> {{state.headerData}}</a>
+              <img [src]="state.headerData_img" alt="">
+              <img src="assets/images/svg/drowdown.svg" alt="">
+            </div>
+          </a>
+          <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/transactions">
+              <img src="assets/images/svg/money.png" alt="" width="15px"> Transactions
+            </a>
+            <a class="dropdown-item" routerLink="/profile" >
+              <img src="assets/images/svg/account.png" alt="" width="15px"> Profile
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" style="cursor: pointer" (click)="logOut()">
+              <img src="assets/images/svg/logout.png" alt="" width="15px">  Log Out
+            </a>
+          </div>
+        </li>
+      </ng-template>
+
+    </ul>
+  </nav>
+  <!--top nav closed-->
+
+  <!--bottom navigation starts-->
+  <div class="baxi-bottom-nav">
+      <ul class="bottom-links">
+        <li> <a routerLink="/home"><img src="assets/images/svg/home-interface.png" srcset="assets/images/svg/home-interface.svg" alt=""> Home</a> </li>
+        <li><a routerLink="/airtime-data" routerLinkActive="active-link"><img src="assets/images/svg/airtime.png" srcset="assets/images/svg/airtime.svg" alt=""> Airtime / Data</a></li>
+        <li><a routerLink="/electricity-bills" routerLinkActive="active-link"><img src="assets/images/svg/theater.png" srcset="assets/images/svg/theater.svg" alt=""> Electricity Bills</a></li>
+        <li><a routerLink="/tv-subscription" routerLinkActive="active-link"><img src="assets/images/svg/send-money.png" srcset="assets/images/svg/send-money.svg" alt=""> TV Subscription</a></li>
+        <li><a routerLink="/bills-payment" routerLinkActive="active-link"><img src="assets/images/svg/theater.png" srcset="assets/images/svg/all.svg" alt=""> All Billers</a></li>
+        <!-- <li><a routerLink="/bills-payment" routerLinkActive="active-link"><img src="assets/images/svg/theater.png" srcset="assets/images/svg/theater.svg" alt=""> Bills Payment</a></li> -->
+        <!-- <li><a routerLink="/billers" routerLinkActive="active-link"><img src="assets/images/svg/all.png" srcset="assets/images/svg/all.svg" alt=""> All Billers</a></li> -->
+      </ul>
+
+    <div class="hamburger" id="hamburger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </div>
+  <!--bottom navigation ends-->
+
+</header>

@@ -1,0 +1,96 @@
+<section class="hero">
+
+  <div class="hero-container">
+
+    <div class="hero-description">
+
+
+      <h2 class="animated fadeInDown text-center heading">
+        <b>Welcome To BaxiPay</b>
+      </h2>
+
+
+      <h2 class="animated fadeInDown sub_head">
+        All your bills in one place
+      </h2>
+
+      <div class="hero-biller-container">
+
+        <form action="" class="form">
+          <div class="input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text">
+              <img src="assets/images/svg/feather_search.png" srcset="assets/images/svg/feather_search.svg" alt="">
+            </span>
+            </div>
+            <div class="input-line"></div>
+            <input type="text" class="form-input" placeholder="Search Biller" name="search" [(ngModel)]="searchText" (ngModelChange)="showProvider()">
+          </div>
+          <button class="hero-btn">
+            Find Biller
+          </button>
+        </form>
+
+
+        <div class="providers-wrapper" *ngIf="!state.fixed">
+          <div class="providers">
+            <ng-container *ngFor="let bill of payloads.billers | filter : searchText ; let i = index;">
+              <div class="box animated fadeIn" *ngIf="i < 4" (click)="selectBiller(bill)" [class.box-selected]="bill?.selected" [attr.title]="bill?.shortname || bill?.service_type | uppercase">
+                <img src="{{bill?.serviceLogo}}" alt="">
+                <h5 style="font-size: 11px; margin-top: 5px;">{{bill?.serviceCategory | lowercase}} </h5>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+
+                <div class="hero-biller-cat mt-4" *ngIf="state.fixed">
+
+                  <div class="box category" title="Glo" (click)="selectCat('glo')">
+                    <img src="assets/images/providers/glo.png" srcset="assets/images/providers/glo.png" alt="">
+                  </div>
+
+                  <div class="box category" title="Mtn" (click)="selectCat('mtn')">
+                    <img src="assets/images/providers/glo.png" srcset="assets/images/providers/mtn.png" alt="">
+                  </div>
+
+                   <div class="box category" title="Airtel" (click)="selectCat('airtel')">
+                    <img src="assets/images/providers/glo.png" srcset="assets/images/providers/airtel.png" alt="">
+                  </div>
+
+                  <div class="box category" title="9Mobile" (click)="selectCat('9mobile')">
+                    <img src="assets/images/providers/glo.png" srcset="assets/images/providers/9mobile.png" alt="">
+                  </div>
+        <!--          <ul>-->
+        <!--            <li>-->
+        <!--              <a routerLink="/airtime-data" class="badge custom-badge">-->
+        <!--                -->
+        <!--              </a>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <a routerLink="/bills-payment" class="badge custom-badge">-->
+        <!--                <img src="assets/images/svg/send-fund.png" srcset="assets/images/providers/glo.png" alt="">-->
+        <!--              </a>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <a href="" class="badge custom-badge">-->
+        <!--                <img src="assets/images/svg/wifi.png" srcset="assets/images/providers/mtn.png" alt="">-->
+        <!--              </a>-->
+        <!--            </li>-->
+        <!--            <li>-->
+        <!--              <a href="" class="badge custom-badge">-->
+        <!--                <img src="assets/images/svg/ellips.png" srcset="assets/images/providers/airtel.png" alt="">-->
+        <!--              </a>-->
+        <!--            </li>-->
+        <!--          </ul>-->
+                </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hero-bg-image">
+  </div>
+</section>

@@ -1,0 +1,258 @@
+<!--End Show Session Expire Warning Popup here -->
+<!--just added a pull request-->
+<!--Start Show Session Expire Popup here -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+
+  <div class="modal-dialog " role="document">
+
+    <div class="modal-content auth-modal">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+
+      <div class="modal-body modal-container">
+
+        <div class="modal-logo text-center">
+          <h4>
+            <img src="assets/images/baxipay-logo.png" alt="logo">
+          </h4>
+        </div>
+
+        <div class="wrapper my-3 p-3">
+
+          <form class="" [formGroup]="loginFormGroup" (ngSubmit)="login()">
+
+            <div class="form-group">
+              <div class="input-group error" [ngClass]="{'error': loginFormGroup.get('email').touched && loginFormGroup.get('email').invalid}">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <img src="assets/images/svg/user_account.png"  srcset="assets/images/svg/user_account.svg" alt="">
+                  </span>
+                </div>
+
+                <input type="email" class="form-control" formControlName="email" placeholder="Email Address">
+              </div>
+
+              <div class="k-form-error" *ngIf="loginFormGroup.get('email').invalid && (loginFormGroup.get('email').touched || loginFormGroup.get('email').dirty)">
+
+                <div *ngIf="loginFormGroup.get('email').errors.required || loginFormGroup.get('email').errors.whitespace">Please enter your email address</div>
+                <div *ngIf="loginFormGroup.get('email').errors.email">Please enter a valid email address</div>
+
+              </div>
+
+
+            </div>
+
+
+            <div class="form-group">
+              <div class="input-group" [ngClass]="{'error': loginFormGroup.get('password').touched && loginFormGroup.get('password').invalid}">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <img src="assets/images/svg/key.png"  srcset="assets/images/svg/key.svg" alt="">
+                  </span>
+                </div>
+                <span class="float-right"  style="position: absolute; top: 12px;right: 10px; z-index: 999; cursor: pointer" (click)="passwordToggle('loginPasswordInput')">
+                   <img src="assets/images/svg/visibility.png"  srcset="assets/images/svg/visibility.svg" alt="">
+                </span>
+
+                <input type="password" class="form-control" formControlName="password"  placeholder="Password" id="loginPasswordInput">
+              </div>
+              <div class="k-form-error" *ngIf="loginFormGroup.get('password').invalid && (loginFormGroup.get('password').touched || loginFormGroup.get('password').dirty)">
+                Please enter your password
+              </div>
+            </div>
+
+            <div class="form-group mt-4">
+
+              <div class="rm-btn">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" formControlName="rememberMe"  class="custom-control-input" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">Remember me</label>
+                </div>
+
+
+                <button class="btn auth-btn" type="submit" [disabled]="loginFormGroup.invalid || state.loader">
+                  <span> Log In</span>
+                  <span class="k-loader k-loader--skin-dark" *ngIf="state.loader"></span>
+                </button>
+              </div>
+
+            </div>
+          </form>
+      </div>
+
+          <div class="login-extra">
+            <p>
+              <a (click)="openModal('SIGN_UP')">Register Now</a>
+            </p>
+
+            <p>
+              <a (click)="openModal('F_PASSWORD')">Forgot Password?</a>
+            </p>
+          </div>
+
+
+        <!-- </div> -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!--password reset email modal-->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+
+  <div class="modal-dialog " role="document">
+
+    <div class="modal-content auth-modal">
+
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+
+
+      <div class="modal-body modal-container" *ngIf="loaders.showToken">
+        <div class="modal-logo text-center">
+          <h4>
+            <img src="assets/images/baxipay-logo.png" alt="logo">
+          </h4>
+        </div>
+
+        <div class="modal-logo text-center">
+          <div class="container">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+<!--              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+             <p class="text-danger">We sent an OTP to your e-mail. Kindly check for the OTP and fill in the space below</p>
+            </div>
+          </div>
+        </div>
+        <div class="wrapper my-3 p-3">
+
+          <form class="" #otpForm="ngForm" (ngSubmit)="completeReset()">
+
+            <div class="form-group">
+              <div class="input-group">
+                <input type="password" class="form-control"  placeholder="Enter OTP" name="otp"  #otp="ngModel" maxlength="4"
+                       id="otp"
+                       [(ngModel)]="details.otp" [ngModelOptions]="{standalone: true}" required>
+              </div>
+
+              <div class="text-danger" *ngIf="otp.errors && (otp.dirty || otp.touched)" >
+                    <span class="validation-message" [hidden]="!otp.hasError('required')" style="font-size: 11px; margin-bottom: -2px;">
+                    OTP Pin is required</span>
+              </div>
+              <br>
+              <div class="input-group">
+                <input type="email" class="form-control"  placeholder="Enter email" name="email"  #email="ngModel"
+                       id="email"
+                       [(ngModel)]="details.email" [ngModelOptions]="{standalone: true}" required>
+              </div>
+            <br>
+              <div class="input-group">
+                <span class="float-right"  style="position: absolute; top: 12px;right: 10px; z-index: 999; cursor: pointer" (click)="passwordToggle('password')">
+                   <img src="assets/images/svg/visibility.png"  srcset="assets/images/svg/visibility.svg" alt="">
+                </span>
+
+                <input type="password" class="form-control"  placeholder="Enter new password" name="password"  #password="ngModel"
+                       id="password"
+                       [(ngModel)]="details.password" [ngModelOptions]="{standalone: true}" required>
+              </div>
+              <div class="text-danger" *ngIf="password.errors && (password.dirty || password.touched)" >
+                    <span class="validation-message" [hidden]="!password.hasError('required')" style="font-size: 11px; margin-bottom: -2px;">
+                    Password is required</span>
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="float-right"  style="position: absolute; top: 12px;right: 10px; z-index: 999; cursor: pointer" (click)="passwordToggle('confirmPassword')">
+                   <img src="assets/images/svg/visibility.png"  srcset="assets/images/svg/visibility.svg" alt="">
+                </span>
+                <input type="password" class="form-control"  placeholder="Confirm Password" name="confirmPassword"  #confirmPassword="ngModel"
+                       id="confirmPassword" pattern="{{ password.value }}"
+                       [(ngModel)]="details.confirmPassword" [ngModelOptions]="{standalone: true}" required>
+              </div>
+              <div class="text-danger" *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" >
+                    <span class="validation-message" [hidden]="!confirmPassword.hasError('required')" validateEqual="password" style="font-size: 11px; margin-bottom: -2px;">
+                    confirm password is required</span>
+              </div>
+              <div class="text-danger" *ngIf="confirmPassword.errors?.pattern" >
+                    <span class="validation-message"   style="font-size: 11px; margin-bottom: -2px;">
+                    Password doesnt match the above</span>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <button class="btn auth-btn btn-block"  [disabled]="otp.errors || password.errors || confirmPassword.errors || email.errors">
+                Reset
+                <span class="k-loader k-loader--skin-dark" *ngIf="state.loader"></span>
+              </button>
+
+            </div>
+          </form>
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+      <div class="modal-body modal-container" *ngIf="!loaders.showToken">
+
+        <div class="modal-logo text-center">
+          <h4>
+            <img src="assets/images/baxipay-logo.png" alt="logo">
+          </h4>
+        </div>
+
+        <div class="wrapper my-3 p-3">
+
+          <form class="" #forgotPasswordForm="ngForm" (ngSubmit)="setPassword()">
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <img src="assets/images/svg/email.png"  srcset="assets/images/svg/email.svg" alt="">
+                  </span>
+                </div>
+                <input type="email" class="form-control"  placeholder="Email Address" name="email" type="email" #email="ngModel"
+                       id="email"
+                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                       [(ngModel)]="details.email" [ngModelOptions]="{standalone: true}" required>
+              </div>
+              <div class="text-danger" *ngIf="email.errors && (email.dirty || email.touched)">
+                    <span class="validation-message" [hidden]="!email.hasError('required')" style="font-size: 11px; margin-bottom: 30px;">
+                    Email is required</span>
+              </div>
+              <div class="text-danger" *ngIf="email.errors?.pattern">
+                <span class="validation-message" style="font-size: 11px; margin-bottom: -2px;">Email is invalid</span>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <button class="btn auth-btn btn-block"  [disabled]="email.errors">
+                  Continue
+                  <span class="k-loader k-loader--skin-dark" *ngIf="state.loader"></span>
+                </button>
+
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

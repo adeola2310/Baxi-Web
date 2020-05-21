@@ -1,0 +1,323 @@
+<section class="transactions-container">
+  <div class="sub-container">
+    <div class="header">
+      <div class="title">
+        <h5>Transactions</h5>
+      </div>
+      <div class="header-action">
+        Actions
+      </div>
+    </div>
+    <main class="history sub-scrollable mt-2">
+      <div class="biller-loader" *ngIf="payloads.data?.length === 0">
+        <div class="loadingio-spinner-spinner-fixpndfd9b4">
+          <div class="ldio-tvah1xcfcgr">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngFor="let transaction of payloads.data">
+        <figure class="item shadow-sm" (click)="transactionDetails(transaction)">
+          <div class="item-details">
+            <div class="biller-logo">
+              <!--             <img [src]="transaction.biller ? transaction.biller.billerLogoLink : 'assets/images/providers/ph.png'" alt="">-->
+              <img src="{{transaction.biller?.billerLogoLink}}">
+            </div>
+            <div class="biller-contents">
+              <div class="biller-title">
+                <span>{{transaction.biller?.billerName}}</span>
+              </div>
+              <div class="biller-desc">
+                <span>{{transaction.biller?.billerCategory}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="item-extra">
+            <div class="amount">
+              <span>&#8358;{{transaction?.amount}}</span>
+            </div>
+
+            <div class="status" [ngClass]="transaction?.trnxStatus === 'INCOMPLETE' ? 'incomplete' : 'approved'">
+              {{transaction?.trnxStatus }}
+            </div>
+
+            <div class="statuss">
+              {{transaction?.trnxDate | date}}
+            </div>
+          </div>
+        </figure>
+      </ng-container>
+
+
+    </main>
+  </div>
+  <div class="advert-side">
+    <div class="advert-description" style="align-items: center; display: flex; justify-content: center">
+
+      <p class="animated fadeInDown text-center heading">
+        <b> Are you aware you can earn commission on EVERY transaction you make??
+          AWESOME right all you have to do is download now on
+         <br><a href="https://play.google.com/store/apps/details?id=com.capricorn.baximobile.app" target="_blank"> <img src="../../../../assets/images/android.png" style="width: 40%"> </a> or
+          <a href="https://apps.apple.com/us/app/baxi-mobile/id1500278465" target="_blank"><img src="../../../../assets/images/apple.png" style="width: 40%"></a>
+        </b>
+        <b>
+          To Purchase an Mpos (Mobile Point of Sale) call 017008571.
+        </b>
+      </p>
+
+
+      <img src="../../../assets/images/baxi_image.png" style="width: 25rem;">
+    </div>
+
+  </div>
+</section>
+
+
+<div class="" *ngIf="state.showMore">
+  <div class="modal" id="moreDetails" tabindex="-1" role="dialog" aria-labelledby="details">
+    <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <!--<div class="modal-header">
+
+        </div>-->
+        <div class="modal-body p-0">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header" style="background-color:#FFD403;">
+              <h5 class="mb-0 text-center" style="color: #FFFFFF"> Transaction Details
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </h5>
+            </div>
+
+
+            <!-- Card body -->
+
+            <div class="container" id="printer" #printer>
+              <div class="row">
+                <div class="col-md-5">
+                  <img src="{{transactionViewer?.biller?.billerLogoLink}}"
+                       style="border: 2px solid #FFFFFF;width: 70%; margin-top:20px;">
+                </div>
+                <div class="col-md-7">
+                  <div class="table-responsive py-4">
+                    <table class="table" *ngIf="transactionViewer?.biller?.billerCategory.toLowerCase() === 'airtime' || transactionViewer?.biller?.billerCategory.toLowerCase() === 'databundle'">
+                      <tbody>
+
+                      </tbody>
+                      <tr>
+                        <th>Name</th>
+                        <td>
+                          {{transactionViewer?.customerDetails?.fullName}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Amount</th>
+                        <td> NGN <b>{{transactionViewer?.amount}}</b></td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>
+                          {{transactionViewer?.trnxStatus}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Transaction ID</th>
+                        <td>
+                          {{transactionViewer?.trnxRef}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Phone Number</th>
+                        <td>
+                          {{transactionViewer?.recipientAccount}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <td>
+                          {{transactionViewer?.trnxDate | date: 'yyyy/MM/dd h:mm:ss a'}}
+                        </td>
+                      </tr>
+                    </table>
+                    <table class="table" *ngIf="transactionViewer?.biller?.billerCategory.toLowerCase() === 'epin'">
+                      <tbody>
+
+                      </tbody>
+                      <tr>
+                        <th>Name</th>
+                        <td>
+                          {{transactionViewer?.customerDetails?.fullName}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Amount</th>
+                        <td> NGN <b>{{transactionViewer?.amount}}</b></td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>
+                          {{transactionViewer?.trnxStatus}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Transaction Reference</th>
+                        <td>
+                          {{transactionViewer?.trnxRef}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Pin</th>
+                        <td>
+                          {{transactionViewer?.transactionValueDetail}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <td>
+                          {{transactionViewer?.trnxDate | date: 'yyyy/MM/dd h:mm:ss a'}}
+                        </td>
+                      </tr>
+                    </table>
+                    <table class="table" *ngIf="transactionViewer?.biller?.billerCategory.toLowerCase() === 'cabletv'">
+                      <tbody>
+
+                      </tbody>
+                      <tr>
+                        <th>Name</th>
+                        <td>
+                          {{transactionViewer?.customerDetails?.fullName}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Amount</th>
+                        <td> NGN <b>{{transactionViewer?.amount}}</b></td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>
+                          {{transactionViewer?.trnxStatus}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Transaction Reference</th>
+                        <td>
+                          {{transactionViewer?.trnxRef}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Smart Number</th>
+                        <td>
+                          {{transactionViewer?.recipientAccount}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <td>
+                          {{transactionViewer?.trnxDate | date: 'yyyy/MM/dd h:mm:ss a'}}
+                        </td>
+                      </tr>
+                    </table>
+                    <table class="table" *ngIf="transactionViewer?.biller?.billerCategory.toLowerCase() === 'electricity'">
+                      <tbody>
+
+                      </tbody>
+                      <tr>
+                        <th>Name</th>
+                        <td>
+                          {{transactionViewer?.customerDetails?.fullName}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Amount</th>
+                        <td> NGN <b>{{transactionViewer?.amount}}</b></td>
+                      </tr>
+                      <tr>
+                        <th>Status</th>
+                        <td>
+                          {{transactionViewer?.trnxStatus}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Transaction ID</th>
+                        <td>
+                          {{transactionViewer?.trnxRef}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Token Code</th>
+                        <td>
+                          {{transactionViewer?.transactionValue}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th> Meter Number</th>
+                        <td>
+                          {{transactionViewer?.recipientAccount}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Date</th>
+                        <td>
+                          {{transactionViewer?.trnxDate | date: 'yyyy/MM/dd h:mm:ss a'}}
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="container" style="margin-top:25px; text-align: center; margin-bottom: 15px;">
+              <div class="row">
+                <div class="col-lg-3">
+                  <button class="btn btn-lg" (click)="downloadPdf()"
+                          style="background-color: #ffd403; color: #FFFFFF; font-size: 12px;"><i
+                    class="fa fa-print" style="color: #FFFFFF;"></i> PRINT TRANSACTION
+                  </button>
+
+                </div>
+
+                  <div class="col-lg-6">
+                    <div class="row">
+                      <div class="col">
+                        <fb-like url="http://baxipay.com.ng/"></fb-like>
+                      </div>
+                      <div class="col">
+                        <tweet url="http://baxipay.com.ng/" text="Welcome to BaxiPay"></tweet>
+                      </div>
+                      <div class="col">
+                        <linkedin-share url="http://baxipay.com.ng/"></linkedin-share>
+                      </div>
+<!--                      <div class="col">-->
+<!--                        <a href="https://web.whatsapp.com/send?text=www.google.com" data-action="share/whatsapp/share">Share via Whatsapp web</a>-->
+
+<!--                      </div>-->
+                    </div>
+
+
+
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

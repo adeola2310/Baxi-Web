@@ -1,0 +1,10 @@
+.form-group {
+  p {
+    a {
+      cursor: pointer;
+      &:hover {
+        color: #ffd403;
+      }
+    }
+  }
+}

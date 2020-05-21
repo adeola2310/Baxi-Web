@@ -1,0 +1,123 @@
+
+<section class="client-activity-container">
+
+  <div class="left-section">
+    <div [class.overlay]="state.isContinue"></div>
+    <div class="left-section-wrapper">
+      <div class="title">
+        <h4>
+          <img src="assets/images/svg/send-money-color.png" alt="" srcset="assets/images/svg/send-money-color.svg"> Send Money
+        </h4>
+      </div>
+
+      <div class="send-money-form">
+
+        <form >
+
+          <div class="form-group">
+            <h4>Account Number</h4>
+
+            <input type="text" class="form-control"  placeholder="">
+          </div>
+
+          <div class="form-group">
+            <h4>Bank</h4>
+
+            <input type="text" class="form-control"  placeholder="">
+          </div>
+
+          <div class="form-group">
+            <h4>Beneficiary Name</h4>
+
+            <input type="text" class="form-control"  placeholder="">
+          </div>
+
+          <div class="form-group">
+            <h4>Amount</h4>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <img src="assets/images/svg/naira.png"  srcset="assets/images/svg/naira.svg" alt="">
+                </span>
+              </div>
+              <input type="text" class="form-control"  placeholder="50,000">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4>Remark</h4>
+
+            <input type="text" class="form-control"  placeholder="">
+          </div>
+
+         <div class="form-group">
+           <button class="btn primary-btn text-light btn-block" (click)="isContinue()">
+             Continue
+           </button>
+         </div>
+
+        </form>
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-section" id="send-money-pay-section">
+    <div [class.overlay]="!state.isContinue"></div>
+    <div class="right-section-wrapper">
+
+      <div class="title-wrapper">
+        <img src="assets/images/providers/fbn.png" alt="">
+        <div class="title">
+          <h6>Transfer to Account</h6>
+          <small>023432344</small>
+        </div>
+      </div>
+
+      <form>
+        <div class="form-title d-flex">
+          <h4>&#8358;50,000</h4>
+          <img src="assets/images/svg/edit.png" srcset="assets/images/svg/edit.svg" alt="">
+        </div>
+        <small>Surcharges: &#8358;52.00</small>
+
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Account Type</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <div class="form-group d-flex justify-content-between">
+          <div class="exp-con">
+            <label>Expiry (MM/YY) </label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="cvv-con">
+            <label>CVV </label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>PIN</label>
+          <input type="text" class="form-control">
+        </div>
+
+        <button class="btn primary-btn text-light btn-block">
+          <img src="assets/images/svg/lock.png" srcset="assets/images/svg/lock.svg" alt=""> Pay &#8358;50,000
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</section>

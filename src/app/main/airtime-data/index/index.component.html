@@ -1,0 +1,141 @@
+
+<section class="client-activity-container">
+
+  <div class="left-section" id="provider-section">
+    <div [class.overlay]="state.isContinue"></div>
+    <div class="left-section-wrapper">
+      <div class="title">
+        <h4>
+          <img src="assets/images/svg/phone.png" alt="" srcset="assets/images/svg/phone.svg" class="mr-2"> <span #page_title>Buy Airtime</span>
+        </h4>
+      </div>
+
+      <div class="page-tab-container">
+
+        <ul class="nav tabs" id="pills-tab" role="tablist">
+          <li class="tab-item">
+            <a class="nav-link active shadow-sm" (click)="changeProviderType('BUY_AIRTIME'); page_title.innerHTML = 'Buy Airtime';" id="pills-airtime-tab" data-toggle="pill" href="#airtime-tab" role="tab" aria-controls="airtime-tab" aria-selected="true">Buy Airtime</a>
+          </li>
+          <li class="tab-item">
+            <a class="nav-link shadow-sm"  (click)="changeProviderType('BUY_DATA');page_title.innerHTML = 'Buy Data'" id="pills-data-tab" data-toggle="pill" href="#data-tab" role="tab" aria-controls="data-tab" aria-selected="false">Buy Data</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="providers-wrapper">
+        <h4>Providers</h4>
+        <div class="provider-spinner mt-4" *ngIf="payloads.provider.length === 0 && state.loader.fetch">
+          <div class="spinner-box">
+            <small>Please Wait...</small>
+            <div class="spinner"></div>
+          </div>
+        </div>
+
+        <div class="providers" *ngIf="payloads.provider.length > 0">
+          <ng-container *ngFor="let provider of payloads.provider; let i = index;">
+            <div class="box animated fadeIn" [class.box-selected]="provider?.selected" (click)="selectProvider(state.providerType, provider, i)" [attr.title]="provider?.shortname || provider?.service_type | uppercase">
+              <img [src]="getProviderLogo(provider?.shortname || provider?.service_type)" alt="">
+              <h5>{{provider?.shortname || provider?.service_type | uppercase}} </h5>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="airtime-form">
+
+        <form [formGroup]="airtimeForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <h4>Phone Number</h4>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+              <span class="input-group-text">
+                <img src="assets/images/svg/airtime-phone.png"  srcset="assets/images/svg/airtime-phone.svg" alt="">
+              </span>
+              </div>
+              <input type="tel" class="form-control"  formControlName="phoneNumber"  maxlength="11"  placeholder="08000000000"  [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+<!--              (keyup)="selectTelcos($event)" (keydown)="selectTelcos($event)"-->
+
+            </div>
+          </div>
+
+          <div class="tab-content mt-3" id="pills-tabContent">
+            <div class="tab-pane animated fadeIn show active" id="airtime-tab" role="tabpanel" aria-labelledby="pills-airtime-tab">
+
+              <div class="form-group">
+                <h4>Enter Amount (&#8358;)</h4>
+                <input  type="text" id="amount"  formControlName="Amount" class="form-control" placeholder="Amount" [ngClass]="{ 'is-invalid': submitted && f.Amount.errors}"
+                [(ngModel)]="purchaseFormControls.amount"
+                (keydown)="numberCheck($event)"
+                 autocomplete="off">
+              </div>
+
+            </div>
+            <div class="tab-pane animated fadeIn " id="data-tab" role="tabpanel" aria-labelledby="pills-data-tab">
+             <!--data input select-->
+              <div class="form-group">
+                <h4>Select Plan</h4>
+                <ng-select
+                  name="name"
+                  bindLabel="name"
+                  [items]="payloads.plan"
+                  placeholder="Select Data Plan"
+                  (change)="changeProviderPlan($event);"
+                  [searchable]="false"
+                  appendTo="body">
+                </ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn primary-btn text-light btn-block" type="submit" [disabled]="f.phoneNumber.errors ||(f.Amount.errors)">
+              Continue
+            </button>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-section" id="airtime-pay-section">
+    <div [class.overlay]="!state.isContinue"></div>
+      <div class="cancel-button" title="cancel transaction" *ngIf="state.isContinue" (click)="cancelTransaction()">
+        <img src="assets/images/svg/close.svg" alt="">
+      </div>
+
+      <div class="right-section-wrapper">
+
+          <div class="title-wrapper">
+            <img [src]="getProviderLogo(purchaseFormControls.provider?.service_type)" alt="">
+            <div class="title">
+              <h6>{{ purchaseFormControls.provider?.name }} - {{ purchaseFormControls.provider?.plans ? purchaseFormControls.provider?.plans[0]  : purchaseFormControls.provider?.plan }} </h6>
+              <small>{{f.phoneNumber.value}}</small>
+            </div>
+          </div>
+
+          <form>
+            <div class="form-title d-flex">
+              <h4 *ngIf="!state.amountIsEdit">&#8358;{{purchaseFormControls.amount}}</h4>
+              <div class="form-group">
+                <input type="text" [hidden]="!state.amountIsEdit" id="amountEdit" class="form-control animated slideInRight" autofocus (keypress)="airtimeAmount($event)" (blur)="extraDomFunationality('AFTER_EDIT_AMOUNT', $event)">
+              </div>
+              <ng-container *ngIf="state.providerType === 'AIRTIME'">
+                <img src="assets/images/svg/edit.png" srcset="assets/images/svg/edit.svg" alt="" style="cursor: pointer" *ngIf="!state.amountIsEdit" (click)="extraDomFunationality('EDIT_AMOUNT')">
+              </ng-container>
+            </div>
+            <!--<small>Surcharges: ₦0.00</small>-->
+
+          </form>
+
+          <button class="btn primary-btn text-light btn-block" [disabled]="purchaseFormControls.amount === '' || state.loader.post  || purchaseFormControls.amount === ''" (click)="pay()">
+            <img src="assets/images/svg/lock.png" srcset="assets/images/credit.svg" alt="" width="20px"> Pay <i class="k-loader k-loader--skin-dark" *ngIf="state.loader.post"></i>
+          </button>
+
+      </div>
+  </div>
+</section>

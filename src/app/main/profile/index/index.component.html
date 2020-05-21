@@ -1,0 +1,205 @@
+<section class="profile-container">
+  <div class="p-container-inner">
+    <div class="title">
+      <h4>User Profile</h4>
+    </div>
+    <div class="p-tab-container">
+
+      <ul class="nav tabs" id="default-tab" role="tablist">
+        <li class="tab-item">
+          <a href="#account-tab-content" id="account-tab" class="nav-link active" data-toggle="pill" role="tab" aria-controls="data-tab" aria-selected="false">
+            Account
+          </a>
+        </li>
+        <li class="tab-item">
+          <a href="#password-tab-content" id="password-tab" class="nav-link" data-toggle="pill" role="tab" aria-controls="data-tab" aria-selected="false">
+            Change Password
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content p-tab-content">
+        <div class="tab-pane animated fadeIn show active" id="account-tab-content" role="tabpanel" aria-labelledby="account-tab">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" >
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Profile Picture</h4>
+                  <p>Your current avatar</p>
+                </div>
+              </div>
+              <div class="form-input">
+                <label for="profile-img" (change)="uploadImage($event)">
+                  <img [src]="imageFile" alt="" class="profile-img rounded-circle"  title="upload picture">
+<!--                  <div id="profile-display"></div>-->
+                  <input type="file" id="profile-img" class="d-none"  accept="image/*">
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Edit Full Name</h4>
+                  <p>Your full name</p>
+                </div>
+              </div>
+              <div class="form-input">
+                <div class="input-fields">
+                  <div class="input-wrapper">
+                    <label for="" class="d-block">First Name</label>
+                    <input type="text" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors}" class="p-input form-control" required>
+                  </div>
+                  <div class="input-wrapper">
+                    <label for="" class="d-block">Last Name</label>
+                    <input type="text" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors}" class="p-input form-control" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Email Address</h4>
+                  <p>we send saving notifications and other account updates
+                    to your confirmed email address.</p>
+                </div>
+              </div>
+              <div class="form-input">
+                <div class="input-fields">
+                  <div class="input-wrapper">
+                    <label for="" class="d-block">Email Address</label>
+                    <input type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors}" class="p-input form-control" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Phone Number</h4>
+                  <p>we send verification messages to your phone
+                    number.</p>
+                </div>
+              </div>
+              <div class="form-input">
+                <div class="input-fields">
+                  <div class="input-wrapper">
+                    <label for="" class="d-block">Phone Number</label>
+                    <input type="tel" maxlength="11" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors}" class="p-input form-control" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Gender</h4>
+                  <p>What is your gender?</p>
+                </div>
+              </div>
+              <div class="form-input">
+                <div class="input-fields">
+                  <div class="custom-control custom-radio">
+                    <input type="radio"  class="custom-control-input" formControlName="gender" id="female" value="female" name="gender" >
+                    <label class="custom-control-label" for="female">Female</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio"  class="custom-control-input" formControlName="gender" id="male" value="male" name="gender" checked>
+                    <label class="custom-control-label" for="male">Male</label>
+                  </div>
+                </div>
+<!--                <div *ngIf="f.gender.touched && f.gender.invalid" class="alert alert-danger">-->
+<!--                  <div *ngIf="f.gender.errors.required">Name is required.</div>-->
+<!--                </div>-->
+
+              </div>
+
+            </div>
+            <div class="form-group">
+              <div class="form-label"></div>
+              <div class="form-input">
+                <div class="input-fields">
+                  <button class="btn p-button" type="submit" [disabled]="f.firstName.errors ||
+                  (f.lastName.errors || f.email.errors || f.phoneNumber.errors || state.loader) ">
+                    Update Profile
+                    <span class="k-loader k-loader--skin-dark" *ngIf="state.loader"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="tab-pane animated fadeIn show" id="password-tab-content" role="tabpanel" aria-labelledby="password-tab">
+          <form action="">
+            <div class="form-group">
+              <div class="form-label">
+                <div class="title">
+                  <h4>Password</h4>
+                  <p>Please provide your current password and choose a new password</p>
+                </div>
+              </div>
+              <div  *ngIf="!state.showSuccess">
+                <form class="form-input" #changepasswordForm="ngForm" (ngSubmit)="changePassword()">
+                  <div class="input-fields mb-2">
+                    <div class="input-wrapper">
+                      <label for="" class="d-block">Current Password</label>
+                      <input type="password" class="p-input form-control" name="currentPassword" #currentPassword="ngModel"
+                             id="currentPassword"
+                             [(ngModel)]="changepassword.currentPassword" [ngModelOptions]="{standalone: true}" required>
+                      <div class="text-danger" *ngIf="currentPassword.errors && (currentPassword.dirty || currentPassword.touched)">
+                      <span class="validation-message" [hidden]="!currentPassword.hasError('required')" style="font-size: 12px;">
+                    Current password is required</span>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="input-fields mb-2">
+                    <div class="input-wrapper">
+                      <label for="" class="d-block">New Password</label>
+                      <input type="password" class="p-input form-control" name="password" #password="ngModel"
+                             id="password"
+                             [(ngModel)]="changepassword.password" [ngModelOptions]="{standalone: true}" required>
+                      <div class="text-danger" *ngIf="password.errors && (password.dirty || password.touched)">
+                      <span class="validation-message" [hidden]="!password.hasError('required')" style="font-size: 12px;">
+                     New Password is required</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-fields mb-2">
+                    <div class="input-wrapper">
+                      <label for="" class="d-block">Confirm Password</label>
+                      <input type="password" class="p-input form-control" name="confirmPassword" #confirmPassword="ngModel"
+                             id="confirmPassword" pattern="{{ password.value }}"
+                             [(ngModel)]="changepassword.confirmPassword" [ngModelOptions]="{standalone: true}" required>
+                      <div class="text-danger" *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)">
+                      <span class="validation-message" [hidden]="!confirmPassword.hasError('required')" style="font-size: 12px;">
+                    Confirm password is required</span>
+                      </div>
+                      <div class="text-danger" *ngIf="confirmPassword.errors?.pattern" >
+                    <span class="validation-message"   style="font-size: 11px; margin-bottom: -2px;">
+                    Password doesnt match the above</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="input-fields mt-4">
+                    <button class="btn p-button" [disabled]="password.errors || currentPassword.errors || confirmPassword.errors">
+                      Change Password
+                      <span class="k-loader k-loader--skin-dark" *ngIf="state.loader"></span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div *ngIf="state.showSuccess">
+                <h4 class="title"><b>Your password has been changed successfully</b> </h4>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

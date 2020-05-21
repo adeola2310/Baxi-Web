@@ -1,0 +1,9 @@
+<button
+  style="display: none;"
+    id="raveBtn"
+    class="rave-pay-button"
+    [ngStyle]="style"
+    [ngClass]="className"
+    (click)="madePayment()">
+        {{text || 'Pay'}}
+</button>

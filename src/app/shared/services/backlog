@@ -1,0 +1,84 @@
+import {Injectable} from '@angular/core';
+import {Cookie} from '../utilities/cookie';
+import {Session} from '../utilities/session';
+import {CUSTOM_CONSTANTS} from '../utilities/config';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { UserModel } from 'src/app/main/model/User';
+import { BaseResponseModel } from 'src/app/main/model/BaseResponseModel';
+import { Observable } from 'rxjs';
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TokenService {
+  constructor(private storage: StorageMap) {
+  }
+
+  public token
+  public isTokenLogged() : boolean {
+    return !!this.getAuthUser();
+  }
+
+  /**
+   * setAuthUser
+   */
+  public setAuthUser(user: UserModel) : void {
+    // Cookies.
+    // this.storage.set(CUSTOM_CONSTANTS.APP_USER_DETAILS, user)
+    Cookie.set(CUSTOM_CONSTANTS.APP_VARIABLE, user, {expires: 1});
+    Session.set(CUSTOM_CONSTANTS.APP_VARIABLE, user);
+  }
+
+  public setAuthToken(token : string) : void
+  {
+    Session.set(CUSTOM_CONSTANTS.APP_TOKEN, token);
+    // console.log(token + "setAuthToken()")
+    // this.storage.set(CUSTOM_CONSTANTS.APP_TOKEN, token).subscribe((next) => { 
+    
+    // }, (err) => { })
+  }  
+
+/**
+   * getAuthUser
+   * @returns {any}
+   */
+  public getAuthUser() : Observable<any> {
+      return this.storage.get(CUSTOM_CONSTANTS.APP_USER_DETAILS);
+  }
+
+  /**
+   *
+   * @return {any}
+   */
+  public getAuthUserToken(): any {
+    this.storage.get(CUSTOM_CONSTANTS.APP_TOKEN).subscribe((token)=>{
+      console.log(token)
+        this.token=token
+    })
+
+    return this.token
+    // console.log("====== getAuthUserToken() ======");
+    // console.log(this.storage.get(CUSTOM_CONSTANTS.APP_TOKEN))
+  
+    // return Cookie.getToken().token || Cookie.getToken();
+  }
+
+  /**
+   *
+   */
+  private removeAuthUser(): void {
+    // this.storage.clear()
+    Cookie.remove(CUSTOM_CONSTANTS.APP_VARIABLE);
+    Session.remove(CUSTOM_CONSTANTS.APP_VARIABLE);
+  }
+
+  /**
+   *
+   */
+  public logoutToken(): void {
+    this.removeAuthUser();
+    Session.clear();
+    localStorage.clear();
+  }
+}

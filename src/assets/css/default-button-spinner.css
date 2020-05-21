@@ -1,0 +1,138 @@
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* loader action */
+.k-loader {
+  position: relative;
+  padding-left: 20px;
+}
+
+.k-loader.k-loader--light:before {
+  border-top-color: #ffffff;
+}
+
+.k-loader.k-loader--right:before {
+  left: auto;
+  right: 0.7rem;
+}
+
+.k-loader:before {
+  border-top-color: #dfe2ea;
+}
+
+.k-loader:before {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -0.7rem;
+  margin-left: -0.7rem;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.k-loader:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-top: 2px solid #07d;
+  border-right: 2px solid transparent;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-animation: k-loader-rotate 0.6s linear infinite;
+  -moz-animation: k-loader-rotate 0.6s linear infinite;
+  -ms-animation: k-loader-rotate 0.6s linear infinite;
+  -o-animation: k-loader-rotate 0.6s linear infinite;
+  animation: k-loader-rotate 0.6s linear infinite;
+}
+
+@-webkit-keyframes k-loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes k-loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes k-loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes k-loader-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .k-loader:before {
+    border-top-color: #dfe2ea;
+} */
+
+.k-loader.k-loader--skin-dark:before {
+  border-top-color: #001612;
+}
+
+.k-loader.k-loader--brand:before {
+  border-top-color: #716aca;
+}
+
+.k-loader.k-loader--metal:before {
+  border-top-color: #c4c5d6;
+}
+
+.k-loader.k-loader--light:before {
+  border-top-color: #ffffff;
+}
+
+.k-loader.k-loader--accent:before {
+  border-top-color: #00c5dc;
+}
+
+.k-loader.k-loader--focus:before {
+  border-top-color: #9816f4;
+}
+
+.k-loader.k-loader--primary:before {
+  border-top-color: #5867dd;
+}
+
+.k-loader.k-loader--success:before {
+  border-top-color: #34bfa3;
+}
+
+.k-loader.k-loader--info:before {
+  border-top-color: #36a3f7;
+}
+
+.k-loader.k-loader--warning:before {
+  border-top-color: #ffb822;
+}
+
+.k-loader.k-loader--danger:before {
+  border-top-color: #f4516c;
+}
+
+
+
+/* form valiation rules */
+
+
+.k-form-error {
+  display: block;
+  padding: 3px 0 0 5px;
+  color: #f4516c;
+  font-size: 0.7rem;
+}

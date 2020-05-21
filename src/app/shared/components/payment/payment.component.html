@@ -1,0 +1,12 @@
+
+<rave-pay-button
+  [text]="'Pay me,my money'"
+  [key] = "paymentObj?.key"
+  [email] = "paymentObj?.email"
+  [customer_phone] = "paymentObj?.phone"
+  [amount]="paymentObj?.amount"
+  [custom_title]="paymentObj?.title"
+  [reference]="paymentObj?.ref"
+  (callback)="paymentDone($event)"
+  (close)="cancelPayment()"
+></rave-pay-button >

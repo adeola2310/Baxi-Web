@@ -1,0 +1,200 @@
+<section class="provider-form">
+  <div class="form-wrapper">
+    <div class="mt-5" *ngIf="state.loader.fetch">
+      <div class="biller-loader" >
+        <div class="loadingio-spinner-spinner-fixpndfd9b4"><div class="ldio-tvah1xcfcgr">
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div></div>
+      </div>
+    </div>
+    <ng-container *ngIf="!state.loader.fetch && !state.isContinue">
+      <div class="header">
+        <div class="title">
+          <img src="{{payload.billerDetails?.serviceLogo}}" alt="" [attr.title]="payload.billerDetails?.serviceName">
+          <h4>{{payload.billerDetails?.serviceName}}</h4>
+        </div>
+      </div>
+      <div class="form-container" [ngClass]="{'animated fadeIn': !state.isContinue}">
+        <form class="biller-form"  [formGroup]="billerServiceForm" (ngSubmit)="proceedContinue()">
+
+         <ng-container *ngIf="payload.billerDetails.serviceCategory === 'electricity'">
+           <div class="form-group">
+             <label for="">Meter Number</label>
+             <input type="text"  (keypress)="isNumKey($event)"  class="form-control" formControlName="accountNumber"  placeholder="Meter Number">
+             <div class="k-form-error" *ngIf="billerServiceForm.get('accountNumber').invalid && (billerServiceForm.get('accountNumber').touched || billerServiceForm.get('accountNumber').dirty)">
+               <div *ngIf="billerServiceForm.get('accountNumber').errors.required || billerServiceForm.get('accountNumber').errors.whitespace">Enter Meter number</div>
+             </div>
+           </div>
+         </ng-container>
+
+          <ng-container *ngIf="payload.billerDetails.serviceCategory === 'electricity'">
+            <div class="form-group">
+              <label for="">Phone Number</label>
+              <input type="tel" maxlength="11" (keypress)="isNumKey($event)" class="form-control" formControlName="phoneNumber" placeholder="Phone Number">
+              <div class="k-form-error" *ngIf="billerServiceForm.get('phoneNumber').invalid && (billerServiceForm.get('phoneNumber').touched || billerServiceForm.get('phoneNumber').dirty)">
+
+                <div *ngIf="billerServiceForm.get('phoneNumber').errors.required || billerServiceForm.get('phoneNumber').errors.whitespace">Phone number is required</div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="payload.billerDetails.serviceCategory === 'cabletv'">
+            <div class="form-group">
+              <label for="">Smart Card Number</label>
+              <input type="text" (keypress)="isNumKey($event)" class="form-control" formControlName="cardNumber" placeholder="Smart Card Number" maxlength="11">
+              <div class="k-form-error" *ngIf="billerServiceForm.get('cardNumber').invalid && (billerServiceForm.get('cardNumber').touched || billerServiceForm.get('cardNumber').dirty)">
+
+                <div *ngIf="billerServiceForm.get('cardNumber').errors.required || billerServiceForm.get('cardNumber').errors.whitespace">Please enter smart card number</div>
+                <div *ngIf="billerServiceForm.get('cardNumber').errors.minlength">Smart card number must be less than 10</div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="payload.billerDetails.serviceCategory === 'epin' || payload.billerDetails.serviceBiller === 'Multichoice'  || payload.billerDetails.serviceBiller === 'Startimes'">
+            <div class="form-group">
+              <label for="">{{payload.billerProvider.title}}</label>
+              <ng-select
+                name="name"
+                bindLabel="name"
+                [items]="payload.billerProvider.plans"
+                [placeholder]="payload.billerProvider.title"
+                (change)="changeProviderOption($event)"
+                [searchable]="true"
+                formControlName="plan"
+                appendTo="body">
+              </ng-select>
+              <div class="k-form-error" *ngIf="billerServiceForm.get('plan').invalid && (billerServiceForm.get('plan').touched || billerServiceForm.get('plan').dirty)">
+                {{payload.billerProvider.title ? 'Please ' + payload.billerProvider.title : 'This field is required' }}
+              </div>
+            </div>
+
+            <div class="form-group" *ngIf="payload.billerDetails.serviceBiller === 'Multichoice'  || payload.billerDetails.serviceBiller === 'Startimes'">
+              <label for="">Select Duration Options</label>
+              <ng-select
+                name="name"
+                bindLabel="name"
+                [items]="payload.billerProvider.multichoice.list"
+                [placeholder]="payload.billerProvider.title"
+                (change)="changeProviderOption($event, 'ADD_TO_OBJECT')"
+                [searchable]="true"
+                formControlName="list"
+                appendTo="body">
+              </ng-select>
+              <div class="k-form-error" *ngIf="billerServiceForm.get('list').invalid && (billerServiceForm.get('list').touched || billerServiceForm.get('list').dirty)">
+               Please select duration option
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="payload.billerDetails.serviceCategory === 'epin'">
+            <div class="form-group">
+              <label for="">Number of Pins</label>
+              <input type="text" (keypress)="isNumKey($event)" class="form-control" formControlName="numberOfPin" placeholder="Enter Number of Pin"
+              (blur)="billerServiceForm.get('pinValue').setValue(billerForm.data.id * billerServiceForm.get('numberOfPin').value)">
+              <div class="k-form-error" *ngIf="billerServiceForm.get('numberOfPin').invalid && (billerServiceForm.get('numberOfPin').touched || billerServiceForm.get('numberOfPin').dirty)">
+                Enter number of pin
+              </div>
+              <div class="k-form-error text-info" *ngIf=" (billerServiceForm.get('numberOfPin') > payload.billerProvider.availablePin) &&
+              billerServiceForm.get('numberOfPin').invalid &&
+               (billerServiceForm.get('numberOfPin').touched || billerServiceForm.get('numberOfPin').dirty)">
+                <b>{{payload.billerProvider.availablePin}}</b>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Pin Value(&#8358;)</label>
+              <input type="text" (keypress)="isNumKey($event)" class="form-control" formControlName="pinValue" [attr.disabled]="true">
+              <div class="k-form-error" *ngIf="billerServiceForm.get('pinValue').invalid && (billerServiceForm.get('pinValue').touched || billerServiceForm.get('pinValue').dirty)">
+                Pin value is required
+              </div>
+            </div>
+          </ng-container>
+
+         <ng-container *ngIf="payload.billerDetails.serviceCategory === 'electricity'">
+           <div class="form-group">
+             <label for="">Amount</label>
+             <input type="text" id="amount" (keyup)="formatter($event, 'amount')" (keypress)="isNumKey($event)" class="form-control" formControlName="amount" placeholder="Enter Amount">
+             <div class="k-form-error" *ngIf="billerServiceForm.get('amount').invalid && (billerServiceForm.get('amount').touched || billerServiceForm.get('amount').dirty)">
+
+               <div *ngIf="billerServiceForm.get('amount').errors.required || billerServiceForm.get('amount').errors.whitespace">Amount is required</div>
+               <div *ngIf="billerServiceForm.get('amount').errors.minMaxValue">Amount must not be less than 250</div>
+             </div>
+           </div>
+         </ng-container>
+
+          <button type="submit" class="btn btn-block text-light primary-btn" [disabled]="state.loader.post">
+            Continue <i class="k-loader k-loader--skin-dark" *ngIf="state.loader.post"></i>
+          </button>
+        </form>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="state.isContinue">
+      <div class="payment-form-wrapper mb-5" [ngClass]="{'animated fadeInLeft': state.isContinue}">
+        <div class="goBack">
+          <a (click)="state.isContinue = false"><img src="assets/images/go-back.png" /> Back</a>
+        </div>
+        <div class="title-wrapper shadow-sm mb-2">
+          <img [src]="payload.billerDetails?.serviceLogo" alt="">
+          <div class="title">
+            <h6>{{payload.billerDetails?.serviceName}} </h6>
+            <ng-container *ngIf="payload.billerDetails?.serviceCategory === 'electricity' || payload.billerDetails?.serviceCategory === 'cabletv'">
+              <small>{{payload.billerProvider?.verifiedName}}</small>
+            </ng-container>
+          </div>
+        </div>
+        <div>
+          <form>
+            <div class="form-title d-flex pt-2 pb-2">
+              <h4 *ngIf="!state.amountIsEdit">&#8358;{{billerForm.data?.amount}}</h4>
+              <div class="form-group">
+                <input type="text" [hidden]="!state.amountIsEdit" id="amountEdit" (keyup)="formatter($event, 'amountEdit')" class="form-control animated slideInRight" autofocus
+                       (keypress)="isNumKey($event)" (blur)="extraDomFunctionality('AFTER_EDIT_AMOUNT', $event)">
+              </div>
+              <ng-container *ngIf="payload.billerDetails.serviceCategory === 'electricity'">
+                <img class="pl-2" title="Edit Amount" src="assets/images/svg/edit.png" srcset="assets/images/svg/edit.svg" alt="" style="cursor: pointer"  (click)="extraDomFunctionality('EDIT_AMOUNT')">
+              </ng-container>
+            </div>
+            <!--<small>Surcharges: ₦0.00</small>-->
+          </form>
+
+<!--          ADDONS TEMPLATE-->
+          <ng-container *ngIf="payload.billerDetails.serviceBiller === 'Multichoice' &&payload.billerProvider.multichoice.addons.length > 0">
+            <div class="multichoice-addons mb-4">
+              <small class="text-info">Addons available for selected plan</small>
+              <div class="form-group">
+                <label for="">Select Addon Options</label>
+                <ng-select
+                  name="name"
+                  bindLabel="name"
+                  [items]="payload.billerProvider.multichoice.addons"
+                  [placeholder]="'Select Addon Option'"
+                  (change)="changeProviderOption($event, 'ADDON_SELECT')"
+                  [searchable]="true"
+                  appendTo="body">
+                </ng-select>
+              </div>
+
+              <div class="form-group">
+                <label for="">Select Addon Pricing Options</label>
+                <ng-select
+                  name="name"
+                  bindLabel="name"
+                  [items]="billerForm.data.list"
+                  [placeholder]="'Select Addon Pricing'"
+                  (change)="changeProviderOption($event, 'ADDON_ADD')"
+                  [searchable]="true"
+                  appendTo="body">
+                </ng-select>
+              </div>
+            </div>
+          </ng-container>
+
+          <button class="btn primary-btn text-light btn-block" [disabled]="state.loader.post" (click)="pay()">
+            <img src="assets/images/svg/lock.png" srcset="assets/images/credit.svg" alt="" width="20px"> Pay <i class="k-loader k-loader--skin-dark" *ngIf="state.loader.post"></i>
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</section>

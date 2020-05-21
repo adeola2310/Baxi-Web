@@ -1,0 +1,41 @@
+<section class="biller-wrapper">
+    <div class="biller-container">
+      <div class="biller-search-from">
+        <form class="animated fadeInUp">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <img src="assets/images/svg/feather_search.png" srcset="assets/images/svg/feather_search.svg" alt="">
+              </span>
+            </div>
+            <div class="input-line"></div>
+            <input type="text" class="form-input" placeholder="Search Biller e,g Ikeja Electric..." (keyup)="filterGeneteratedBiller($event.target.value)">
+          </div>
+        </form>
+      </div>
+
+      <div class="biller-loader" *ngIf="payload.data.length === 0 && state.loader">
+        <div class="loader">
+          <div class="loadingio-spinner-spinner-fixpndfd9b4"><div class="ldio-tvah1xcfcgr">
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="biller-list-container">
+        <figure class="biller-box" [attr.title]="biller?.serviceName" *ngFor="let biller of payload.data; let i = index;" (click)="selectBiller(biller)">
+          <div class="biller-logo">
+            <img src="{{biller?.serviceLogo}}" alt="">
+          </div>
+          <div class="biller-contents">
+            <div class="biller-title">
+              <span>{{biller?.serviceName}}</span>
+            </div>
+            <div class="biller-desc">
+              <span>{{biller?.serviceCategory}}</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,119 @@
+
+<section class="billers">
+
+  <div class="left-section">
+
+    <div class="loader-container text-center" *ngIf="payloads.categories.length === 0">
+      <div>
+        <img src="assets/images/loader.gif" alt="">
+        <p><small class="font-italic">loading categories</small></p>
+      </div>
+    </div>
+
+    <ng-container *ngIf="payloads.categories.length !== 0">
+      <div class="biller-category-container">
+        <div class="animated fadeInLeft">
+          <div  *ngFor="let category of payloads.categories; let i = index;" class="list-group">
+            <a class="list-group-item list-group-item-action" [class.active]="category?.active" (click)="getBillersByCategoryType(category, i)" (blur)="billerFormResultShowHide()">
+              {{category?.name}}
+              <img src="assets/images/svg/arrow-left.png" srcset="assets/images/svg/arrow-left.svg" class="float-right" alt="">
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="right-section" id="biller-cat-search-container">
+      <ng-template [ngIf]="!state.is404 && !state.isCategory">
+        <section class="biller-search-results">
+
+          <div class="form-wrapper">
+            <div class="biller-loader" *ngIf="state.loader.billers">
+              <div class="loadingio-spinner-spinner-fixpndfd9b4"><div class="ldio-tvah1xcfcgr">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="biller-list-container mt-3">
+            <ng-container *ngFor="let biller of payloads.billers">
+              <figure class="biller-box" [attr.title]="biller?.serviceName" (click)="selectBiller(biller)">
+                <div class="biller-logo">
+                  <img src="{{biller.serviceLogo}}" alt="">
+                </div>
+                <div class="biller-contents">
+                  <div class="biller-title">
+                    <span>{{biller.serviceName}}</span>
+                  </div>
+                  <div class="biller-desc">
+                    <span>{{biller.serviceCategory}}</span>
+                  </div>
+                </div>
+              </figure>
+            </ng-container>
+
+          </div>
+
+        </section>
+      </ng-template>
+
+      <ng-template [ngIf]="!state.is404 && state.isCategory">
+        <section class="biller-search-results">
+          <div class="backBtn">
+            <a class="btn" (click)="viewAllBiller()" routerLink="/bills-payment" title="View All Billers">&#171; All Billers</a>
+          </div>
+          <div class="title">
+            <h3>Results for {{state.selectedCategory}}</h3>
+          </div>
+
+          <div class="form-wrapper">
+
+            <div class="biller-loader" *ngIf="state.loader.billers">
+              <div class="loadingio-spinner-spinner-fixpndfd9b4"><div class="ldio-tvah1xcfcgr">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+              </div></div>
+            </div>
+          </div>
+
+          <div class="biller-list-container mt-3">
+            <ng-container *ngFor="let biller of payloads.billers">
+              <figure class="biller-box" [attr.title]="biller?.serviceName" (click)="selectBiller(biller)">
+                <div class="biller-logo">
+                  <img src="{{biller.serviceLogo}}" alt="">
+                </div>
+                <div class="biller-contents">
+                  <div class="biller-title">
+                    <span>{{biller.serviceName}}</span>
+                  </div>
+                  <div class="biller-desc">
+                    <span>{{biller.serviceCategory}}</span>
+                  </div>
+                </div>
+              </figure>
+            </ng-container>
+
+          </div>
+        </section>
+      </ng-template>
+
+     <ng-template [ngIf]="state.is404">
+       <section class="biller-search-results" *ngIf="state.is404">
+         <div class="backBtn">
+           <a (click)="viewAllBiller()" class="btn" routerLink="/bills-payment" title="View All Billers">&#171; All Billers</a>
+         </div>
+         <div class="title" style="border-bottom: 1px solid #b0b1af">
+           <h3>Results for {{state.selectedCategory}}</h3>
+         </div>
+         <div class="text-center">
+           <img src="assets/images/404.png" alt="" style="height: 300px">
+           <h4>No Page / Record(s) Found! </h4>
+         </div>
+
+       </section>
+     </ng-template>
+    <!--</ng-container>-->
+
+  </div>
+
+</section>

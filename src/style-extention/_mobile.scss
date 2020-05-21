@@ -1,0 +1,606 @@
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-width: 640px){
+  .cred {
+    display: none;
+    }
+    .dropdown{
+      margin-left: 100px;
+    }
+
+}
+
+//medium break point
+@media only screen and (max-width: 1024px){
+  header {
+    nav.baxi-top-nav {
+
+      ul.top-links {
+        width: 20%;
+        li a {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  section.hero {
+    display: grid;
+    grid-template-columns: 70% 30%;
+
+    .hero-container {
+      padding: 80px 50px;
+    }
+
+    .hero-bg-image {
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  section.client-activity-container{
+    .left-section {
+      padding: 45px 60px;
+    }
+
+    .right-section {
+      padding: 45px 30px;
+
+      .right-section-wrapper {
+        width: 85%;
+      }
+    }
+  }
+
+  section.profile-container {
+    .p-container-inner {
+      .p-tab-container {
+        .p-tab-content {
+          form {
+            .form-group {
+              .form-label {
+                width: 30%;
+              }
+              .form-input {
+                width: 70%;
+                padding: 0 30px;
+                .input-fields {
+                  .input-wrapper {
+                    width: 50%;
+                    .p-input {
+                      width: 100%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  section.success-page {
+    height: calc(100% - 55px) !important;
+    display: flex !important;
+    .success-container {
+      width: 50%;
+    }
+  }
+
+  .advert-description{
+    overflow: scroll;
+  }
+}
+
+//small medium lol
+@media only screen and (max-width: 768px ) {
+  /************ Global mobile style for header *******  */
+  header {
+    nav.baxi-top-nav {
+      padding: 13px 15px;
+      //position: fixed;
+      ul.top-links {
+        width: 40%;
+        li a {
+          font-size: 12px;
+        }
+        &.top-links-auth {
+          width: 60%;
+        }
+      }
+    }
+
+    div.baxi-bottom-nav {
+      z-index: 999;
+      position: fixed;
+      background-color: transparent;
+      padding: 0;
+      display: block;
+
+      ul.bottom-links {
+        background-color: #000000;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        transform: translateX(-100%);
+        -webkit-transition: transform 0.5s ease-in-out;
+        -moz-transition: transform 0.5s ease-in-out;
+        -o-transition: transform 0.5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
+        padding: 15px 0 0 15px;
+        flex-direction: column;
+        width: 50%;
+
+        li {
+          margin: 0 0 25px 0;
+          width: 100%;
+        }
+      }
+      ul.bottom-links-active {
+        transform: translateX(0%);
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  }
+
+  /************ Global mobile style for authModals *****************/
+  .modal {
+    .auth-modal .modal-container {
+      padding: 40px 25px;
+    }
+  }
+
+  /************ home route ****************/
+  section.hero {
+    overflow-y: hidden;
+    display: flex !important;
+    height: calc(100vh - 55px) !important;
+
+    .hero-container {
+      padding: 80px 30px 50px !important;
+      clip-path: none;
+      .hero-description {
+
+        .sub_head {
+          letter-spacing: 0.53px;
+          color: #363637;
+          font-size: 30px;
+          text-align: center;
+          line-height: 48px;
+        }
+
+        .h2 {
+          letter-spacing: 0.53px;
+          color: #363637;
+          font-size: 38px;
+          line-height: 48px;
+        }
+
+        .hero-biller-container {
+          margin: 46px 0 0 0;
+
+          form {
+            flex-direction: column;
+            //text-align: center;
+
+            div.input-group {
+              height: 50px;
+              width: 100%;
+              flex-wrap: nowrap;
+
+              .form-input {
+                width: 80%;
+                border-top-right-radius: .25rem;
+                border-bottom-right-radius: .25rem;
+              }
+
+              .input-line {
+                height: 30px;
+                width: 1px;
+                top: 10px;
+              }
+            }
+
+            button.hero-btn {
+              width: 50%;
+              padding: 12px 35px;
+              margin: 15px 0 0 0;
+              border-radius: .25rem;
+            }
+          }
+
+        }
+
+        .hero-biller-cat {
+          display: flex;
+          //justify-content: center;
+
+          ul {
+            width: 100%;
+            text-align: center;
+            margin: 0; padding: 0;
+            list-style: none;
+            flex-direction: column;
+
+            li {
+              a.custom-badge {
+                background: #FDFCFA;
+                //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02774);
+                box-shadow: 0 5px 20px rgba(24, 6, 6, 0.14);
+                border-radius: 136px;
+                padding: 10px 20px;
+                margin-bottom: 15px;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 0.405294px;
+                color: #000000;
+                width: 100%;
+              }
+              &:nth-last-child(1) {
+                a {
+                  width: auto !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .hero-bg-image {
+      display: none;
+    }
+  }
+
+  /*************** Global mobile style for client area page **********************/
+  section.client-activity-container {
+    display: block;
+    height: calc(100vh - 55px);
+    overflow: auto;
+    .left-section {
+      padding: 50px 30px;
+
+      .overlay {
+        height: 100%;
+      }
+
+      .left-section-wrapper {
+        .page-tab-container {
+          ul.tabs {
+            li.tab-item {
+              a.nav-link {
+                padding: 10px 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .right-section {
+      padding: 30px 0;
+      overflow-y: auto;
+
+      .right-section-wrapper {
+        width: 85%;
+      }
+    }
+  }
+
+  /************************ BillsPayment mobile style ******************/
+  section.billers {
+    height: calc(100% - 55px);
+    display: block;
+
+    .left-section {
+      padding: 50px 20px;
+      height: 100%;
+    }
+  }
+
+  /************** Billers Mobile ******************/
+  section.biller-wrapper {
+    height: calc(100vh - 55px);
+
+    .biller-container {
+      padding: 50px 20px;
+
+      .biller-search-from {
+        width: 80%;
+        margin: 20px auto;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  /************** Transaction Mobile style **************/
+  section.transactions-container {
+    display: block;
+    height: calc(100vh - 55px);
+    padding: 40px 15px 30px 15px;
+
+    .sub-container {
+      margin-top: 10px;
+      main {
+        .item {
+          padding: 8px 10px 8px 8px;
+        }
+      }
+    }
+  }
+
+  /***************** Profile Mobile style ****************/
+  section.profile-container {
+    height: calc(100vh - 55px);
+    padding: 40px 15px 30px 15px;
+
+    .p-container-inner {
+      .p-tab-container {
+        .p-tab-content {
+          form {
+            .form-group {
+              flex-direction: column;
+              .form-label {
+                width: 100%;
+              }
+              .form-input {
+                width: 100%;
+                padding: 0;
+                .input-fields {
+                  flex-direction: column;
+                  .input-wrapper, .p-button {
+                    margin-right: 0;
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**** Success page Mobile *****/
+  section.success-page {
+    overflow-y: hidden;
+    display: flex !important;
+    height: calc(100vh - 55px) !important;
+    .success-container {
+      width: 80%;
+
+      .desc {
+        p {
+          margin: 5% 25px;
+        }
+      }
+    }
+  }
+
+  /*** Biller form mobile styling ***********/
+  section.provider-form {
+    height: calc(100vh - 55px);
+    .form-wrapper {
+      width: 100%;
+
+      .form-container {
+        padding: 1em 0.4em;
+      }
+    }
+  }
+}
+
+
+//smallest device width
+@media screen and (max-width: 360px ) {
+  /********** header styling *********************/
+  header {
+    nav.baxi-top-nav {
+      padding: 13px 15px;
+      //position: fixed;
+      ul.top-links {
+        width: 50%;
+        li a {
+          font-size: 12px;
+        }
+        &.top-links-auth {
+          width: 60%;
+        }
+      }
+    }
+    div.baxi-bottom-nav {
+
+      position: fixed;
+      background-color: transparent;
+      padding: 0;
+      display: block;
+      z-index: 99;
+
+      ul.bottom-links {
+        background-color: #000000;
+        box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+        transform: translateX(-100%);
+        -webkit-transition: transform 0.5s ease-in-out;
+        -moz-transition: transform 0.5s ease-in-out;
+        -o-transition: transform 0.5s ease-in-out;
+        transition: transform 0.5s ease-in-out;
+        padding: 15px 0 0 15px;
+        flex-direction: column;
+        width: 60%;
+
+        li {
+          margin: 0 0 25px 0;
+          width: 100%;
+        }
+      }
+      ul.bottom-links-active {
+        transform: translateX(0%);
+      }
+      .hamburger {
+        display: block;
+      }
+    }
+  }
+
+
+  /************ Global mobile style for authModals *****************/
+ .modal {
+   .auth-modal .modal-container {
+     padding: 40px 20px;
+   }
+ }
+
+  /************ home route ****************/
+  section.hero {
+    height: calc(100% - 55px) !important;
+    display: flex !important;
+
+    .hero-container {
+      padding: 60px 20px 40px !important;
+      clip-path: none;
+
+      .hero-description {
+
+        h2 {
+          letter-spacing: 0.53px;
+          color: #363637;
+          font-size: 32px;
+          line-height: 48px;
+        }
+
+        .hero-biller-container {
+          margin: 42px 0 0 0;
+
+          form {
+            flex-direction: column;
+            div.input-group {
+              flex-wrap: nowrap;
+              height: 50px;
+
+              .form-input {
+                width: 100%;
+                border-top-right-radius: .25rem;
+                border-bottom-right-radius: .25rem;
+              }
+              .input-line {
+                height: 30px;
+                width: 1px;
+                top: 10px;
+              }
+            }
+
+            button.hero-btn {
+              width: 50%;
+              padding: 12px 25px;
+              margin: 6px 0 0 0;
+              border-radius: .25rem;
+            }
+          }
+
+          .hero-biller-cat {
+            display: flex;
+            justify-content: center;
+
+            ul {
+              width: 100%;
+              text-align: center;
+              flex-direction: column;
+
+              li {
+                a.custom-badge {
+                  background: #FDFCFA;
+                  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02774);
+                  box-shadow:0 5px 20px rgba(24, 6, 6, 0.14);
+                  border-radius: 136px;
+                  padding: 10px 20px;
+                  margin-bottom: 15px;
+                  line-height: 20px;
+                  letter-spacing: 0.405294px;
+                  color: #000000;
+                }
+                &:nth-last-child(1) {
+                  a {
+                    width: auto;
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  section.success-page{
+   .desc{
+     padding-top: 10rem;
+   }
+
+    .advert-side{
+      display: none;
+    }
+
+    .advert-description{
+      display: none;
+    }
+  }
+
+  section.transactions-container {
+    display: block;
+    //height: 100vh;
+    //height: calc(100vh - 55px);
+    padding: 40px 15px 30px 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+
+    .advert-side{
+      display: none;
+    }
+
+    .advert-description{
+      display: none;
+    }
+
+  }
+
+}
+
+
+
+//smallest device for transaction page
+@media screen and (max-width: 600px ) {
+  section.transactions-container {
+    display: block;
+    //height: 100vh;
+    //height: calc(100vh - 55px);
+    padding: 40px 15px 30px 15px;
+    overflow-y: scroll;
+
+    .advert-side{
+      display: none;
+    }
+
+    .advert-description{
+      display: none;
+    }
+
+  }
+
+  section.success-page{
+    .desc{
+      margin-left: -175px;
+      padding-top: 10rem;
+
+    }
+    .advert-side{
+      display: none;
+    }
+
+    .advert-description{
+      display: none;
+    }
+  }
+}
+

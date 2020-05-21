@@ -1,0 +1,27 @@
+.input-fields {
+  .custom-control-input {
+    &:focus {
+      border-color: #ffd403;
+    }
+  }
+  .custom-control-label {
+    color: #000000;
+    font-size: 14px;
+    line-height: 22px;
+    &::before, &::after {
+      height: 18px;
+      width: 19px;
+    }
+  }
+  .custom-control-input:checked~.custom-control-label::before {
+    background-color: #ffd403;
+    border-color: #f0f0f0;
+  }
+}
+
+#profile-display {
+  height: 70px;
+  width: 70px;
+  border-radius: 50px;
+  background-color: red;
+}
